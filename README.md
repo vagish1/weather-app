@@ -61,4 +61,8 @@ The **Flutter Weather App** provides users with real-time weather information fo
 Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/flutter_weather_app.git
+git clone https://github.com/vagish1/weather-app.git
+
+### 1. **Clone the Repository**
+
+

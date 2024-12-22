@@ -43,6 +43,7 @@ dependencies:
   intl: ^0.20.1
   logger: ^2.5.0
   fluttertoast: ^8.2.10
+  connectivity_plus: ^6.1.1
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,7 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 
 class AppUtils {
   AppUtils.init();
@@ -60,6 +62,18 @@ class AppUtils {
       default:
         return Icon(Icons.help_outline,
             size: size, color: Colors.black); // Unknown weather
+    }
+  }
+
+  Future<bool> isConnectedToInternet() async {
+    List<ConnectivityResult> result = await Connectivity().checkConnectivity();
+    Logger().d(result.toList());
+    // Check if the connection is either WiFi or mobile data
+    if (result.contains(ConnectivityResult.wifi) ||
+        result.contains(ConnectivityResult.mobile)) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

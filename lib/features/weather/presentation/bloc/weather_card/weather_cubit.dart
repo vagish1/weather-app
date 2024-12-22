@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart'; // Required for Either.
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/core/error/failures.dart';
+import 'package:weather/core/utils/app_utils.dart';
 import 'package:weather/features/weather/data/entity/current_weather_data.dart';
 import 'package:weather/features/weather/data/entity/latlng_model.dart';
 import 'package:weather/features/weather/domain/usecase/get_current_weather.dart';
@@ -17,7 +19,15 @@ class WeatherCubit extends Cubit<WeatherState> {
 
   // Method to fetch weather data by city name.
   Future<void> fetchWeatherByCityName(String cityName) async {
+    if ((await AppUtils.instance.isConnectedToInternet()) == false) {
+      emit(WeatherErrorOccured(ServerFailure(
+          exception: DioException(
+              requestOptions: RequestOptions(),
+              message: "Not Connected to internet"))));
+      return;
+    }
     selectedCityName = cityName;
+
     emit(WeatherLoading()); // Emit loading state initially.
 
     // Fetch the weather data using the use case.
@@ -38,6 +48,13 @@ class WeatherCubit extends Cubit<WeatherState> {
   }
 
   Future<void> fetchWeatherByCoordinate(LatlngModel latLng) async {
+    if ((await AppUtils.instance.isConnectedToInternet()) == false) {
+      emit(WeatherErrorOccured(ServerFailure(
+          exception: DioException(
+              requestOptions: RequestOptions(),
+              message: "Not Connected to internet"))));
+      return;
+    }
     selectedLatLng = latLng;
     emit(WeatherLoading()); // Emit loading state initially.
 

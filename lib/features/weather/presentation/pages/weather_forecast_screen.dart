@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
@@ -49,8 +50,14 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
 
     context.read<WeatherCubit>().selectedLatLng =
         LatlngModel(lat: currentPos.latitude, lng: currentPos.longitude);
-    context.read<WeatherCubit>().fetchWeatherByCoordinate(
-        LatlngModel(lat: currentPos.latitude, lng: currentPos.longitude));
+
+    Connectivity().onConnectivityChanged.listen((e) {
+      if (e.contains(ConnectivityResult.mobile) ||
+          e.contains(ConnectivityResult.wifi)) {
+        context.read<WeatherCubit>().fetchWeatherByCoordinate(
+            LatlngModel(lat: currentPos.latitude, lng: currentPos.longitude));
+      }
+    });
   }
 
   @override
@@ -91,9 +98,7 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
                       Text((state).failure.exception.message ?? ""),
                       ElevatedButton(
                           onPressed: () {
-                            context
-                                .read<WeatherCubit>()
-                                .fetchWeatherByCityName("Mumbai");
+                            getCurrentLocationAndFetchWeather();
                           },
                           child: Text("Retry"))
                     ],

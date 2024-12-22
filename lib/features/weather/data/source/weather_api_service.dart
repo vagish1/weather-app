@@ -21,7 +21,10 @@ class WeatherApiService {
     } on DioException catch (e) {
       Logger().d(e.response?.data);
 
-      return left(ServerFailure(exception: e));
+      return left(ServerFailure(
+          exception: DioException(
+              requestOptions: e.requestOptions,
+              message: e.response?.data['message'])));
     }
   }
 
@@ -36,7 +39,10 @@ class WeatherApiService {
       });
       return right(response);
     } on DioException catch (e) {
-      return left(ServerFailure(exception: e));
+      return left(ServerFailure(
+          exception: DioException(
+              requestOptions: e.requestOptions,
+              message: e.response?.data['message'])));
     }
   }
 
@@ -60,7 +66,10 @@ class WeatherApiService {
       return right(response);
     } on DioException catch (e) {
       Logger().d(e.response?.data);
-      return left(ServerFailure(exception: e));
+      return left(ServerFailure(
+          exception: DioException(
+              requestOptions: e.requestOptions,
+              message: e.response?.data['message'])));
     }
   }
 }

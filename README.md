@@ -62,7 +62,54 @@ Clone the repository to your local machine:
 
 ```bash
 git clone https://github.com/vagish1/weather-app.git
+```
 
-### 1. **Clone the Repository**
+### 2. **Install Dependencies**
+
+Run the following command to install the dependencies:
+
+```bash
+flutter pub get
+```
+
+### 3. **Set Up API Key**
+
+To fetch weather data from the OpenWeatherMap API, you need to sign up for an API key from [OpenWeatherMap](https://openweathermap.org/).
+Once you have the API key, add it to your lib/core/constants/app_constant.dart file:
+
+```bash
+static const String apiKey = 'YOUR_API_KEY';
+```
+
+### 4. **Run the App**
+
+Once you’ve set up the API key and permissions, run the app using:
+
+```bash
+flutter run
+```
+
+This will launch the app, and you can start using the weather features such as searching for cities or getting weather data based on your current location.
+
+## 🎨 UI Design and User Experience
+
+The app has been designed with a focus on simplicity and user-friendliness. The UI includes:
+
+- **Search Bar**: To input a city name and fetch its weather data.
+- **Weather Information**: Displaying current weather data, including temperature, conditions, humidity, wind speed, and pressure.
+- **Forecast**: Displaying a 5-day forecast with temperature ranges and weather conditions.
+- **Location Button**: To fetch weather based on the user's current GPS location.
+- **Error Handling**: If the user enters an invalid city or there are issues with location permissions, appropriate error messages are displayed.
+
+## 🚨 Error Handling
+
+The app includes robust error handling to manage issues such as:
+
+- Invalid city names.
+- Missing location permissions.
+- API request failures (e.g., network issues or incorrect API keys).
+
+Clear error messages are provided in the app to inform users of the issue.
+
 
 
